@@ -4,8 +4,7 @@
 
 # 이전의 코드 형식
 
-<pre>
-<code>
+```c
 public class Non_ChainOfResponsibility {
   public static void main(String[] args) {
     whlie(true)
@@ -21,5 +20,4 @@ public class Non_ChainOfResponsibility {
   }
 
 }
-</code>
-</pre>
+```
