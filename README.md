@@ -6,7 +6,7 @@
 
 ```csharp
 public class Non_ChainOfResponsibility {
-  public static void main(String[] args) {
+  public static void Main(String[] args) {
     whlie(true)
     {
       string command = Console.ReadLine();
@@ -36,22 +36,55 @@ public interface CommandHandler
     void Execute(params string[] _commands);
 }
 ```
-### 이 후 간단하게 Echo 뒤쪽에 인자로 들어온 말을 console에 뽑아주는 기능을 하는 클래스를 구현
-```csharp
-    class EchoCommand : CommandHandler
-    {
-        public void Execute(params string[] _commands)
-        {
-            Console.Write("Echo : ");
-            for (int i = 1; i < _commands.Length; i++)
-                Console.Write($"{_commands[i]} ");
-            Console.WriteLine();
-        }
 
-        public bool IsSupport(string _command)
-        {
-            return _command.Split(' ').Length >= 2 && _command.Split(' ')[0].Equals("Echo");
-        }
+### 이 후 간단하게 Echo 뒤쪽에 인자로 들어온 말을 console에 뽑아주는 기능을 하는 클래스를 구현
+*당연하지만 해당 클래스는 CommandHandler를 상속*
+```csharp
+class EchoCommand : CommandHandler
+{
+    public void Execute(params string[] _commands)
+    {
+        Console.Write("Echo : ");
+        for (int i = 1; i < _commands.Length; i++)
+            Console.Write($"{_commands[i]} ");
+        Console.WriteLine();
     }
+
+    public bool IsSupport(string _command)
+    {
+        return _command.Split(' ').Length >= 2 && _command.Split(' ')[0].Equals("Echo");
+    }
+}
 ```
 
+### 이 후 바뀐코드는 아래와 같다
+*DI는 하지않음*
+
+
+```csharp
+public class ChainOfResponsibility {
+  List<CommandHandler> commandHandlers;
+  
+  public ChainOfResponsibility()
+  {
+    commandHandlers = new List<CommandHandler>();
+    
+    // 이곳에서 구현한 클래스들을 넣어줌
+    commandHandlers.Add(new EchoCommand());
+  }
+
+
+  public static void Main(String[] args) {
+    whlie(true)
+    {
+      string command = Console.ReadLine();
+      foreach(var commandHandler in commandHandlers)
+      {
+        if(commandHandler.IsSupport(command));
+          commandHandler.Execute(command.Split(' '));
+      }
+    }
+  }
+
+}
+```
