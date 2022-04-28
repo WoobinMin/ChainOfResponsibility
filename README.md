@@ -36,4 +36,22 @@ public interface CommandHandler
     void Execute(params string[] _commands);
 }
 ```
+### 이 후 간단하게 Echo 뒤쪽에 인자로 들어온 말을 console에 뽑아주는 기능을 하는 클래스를 구현
+```csharp
+    class EchoCommand : CommandHandler
+    {
+        public void Execute(params string[] _commands)
+        {
+            Console.Write("Echo : ");
+            for (int i = 1; i < _commands.Length; i++)
+                Console.Write($"{_commands[i]} ");
+            Console.WriteLine();
+        }
+
+        public bool IsSupport(string _command)
+        {
+            return _command.Split(' ').Length >= 2 && _command.Split(' ')[0].Equals("Echo");
+        }
+    }
+```
 
