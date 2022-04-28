@@ -4,7 +4,7 @@
 
 # 이전의 코드 형식
 
-```c
+```c++
 public class Non_ChainOfResponsibility {
   public static void main(String[] args) {
     whlie(true)
