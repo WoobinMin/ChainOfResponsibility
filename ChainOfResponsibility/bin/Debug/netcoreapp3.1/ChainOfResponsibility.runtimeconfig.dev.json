@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\SWINK\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\SWINK\\.nuget\\packages"
+    ]
+  }
+}
